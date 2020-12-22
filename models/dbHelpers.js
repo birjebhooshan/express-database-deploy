@@ -24,6 +24,8 @@ module.exports = {
 
 async function add(lesson) {
   return await db("lessons").insert(lesson, ["id", "name"]);
+  //this["id", "name"] is specific to postgres.
+  //this is what the insert statement will return
 }
 
 function find() {
