@@ -1,16 +1,18 @@
-// Update with your config settings.
-
 module.exports = {
   development: {
-    client: "postgresql",
+    client: "sqlite3",
+    useNullAsDefault: true,
     connection: {
-      database: process.env.POSTGRES_DATABASE,
-      user: process.env.POSTGRES_USER,
-      password: process.env.POSTGRES_USER_PW
+      filename: "./data/lessons.db3"
+    },
+    pool: {
+      afterCreate: (conn, done) => {
+        conn.run("PRAGMA foreign_keys = ON", done);
+      }
     }
   },
   production: {
-    client: "postgresql",
+    client: "pg",
     connection: process.env.DATABASE_URL,
     pool: {
       min: 2,
