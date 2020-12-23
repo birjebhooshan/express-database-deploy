@@ -19,8 +19,13 @@ module.exports = {
   findMessage,
   findLessonMessages,
   removeMessages,
-  updateMessages
+  updateMessages,
+  addUser,
+  findAllUsers,
+  findUserByUsername
 };
+
+//All insert function are async because, it takes time to insert compared to normal js query.
 
 async function add(lesson) {
   return await db("lessons").insert(lesson, ["id", "name"]);
@@ -94,4 +99,16 @@ function update(id, changes) {
     .then(() => {
       return findById(id);
     });
+}
+
+async function addUser(user) {
+  return await db("users").insert(user, ["id", "username"]);
+}
+
+function findAllUsers() {
+  return db("users");
+}
+
+function findUserByUsername(username) {
+  return db("users").where({ username }).first();
 }
